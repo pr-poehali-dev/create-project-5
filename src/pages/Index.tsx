@@ -16,10 +16,16 @@ const NAV = [
 ];
 
 const STEPS = [
-  { icon: 'FileText', title: 'Заявка и договор', text: 'Готовим и подаём заявку в сетевую организацию, заключаем договор на ТП.' },
-  { icon: 'Ruler', title: 'Технические условия', text: 'Получаем ТУ и рассчитываем оптимальную схему присоединения объекта.' },
-  { icon: 'HardHat', title: 'Проект и монтаж', text: 'Разрабатываем проект, согласуем и выполняем электромонтажные работы.' },
-  { icon: 'PlugZap', title: 'Подача напряжения', text: 'Оформляем акты, допуск и запускаем электроснабжение вашего объекта.' },
+  { icon: 'FileText', title: 'Подготовка документов', text: 'Готовим полный пакет документов для подачи заявки в сетевую организацию.' },
+  { icon: 'Ruler', title: 'Проект электроснабжения', text: 'Разрабатываем проект электроснабжения по техническим условиям объекта.' },
+  { icon: 'Handshake', title: 'Сопровождение в сетевой', text: 'Ведём и согласуем все этапы в сетевой компании до получения результата.' },
+  { icon: 'PlugZap', title: 'Под ключ до подключения', text: 'От заявки до подачи напряжения — весь процесс присоединения берём на себя.' },
+];
+
+const AUDIENCE = [
+  { icon: 'House', title: 'Частные дома и дачи', text: 'Подключение жилых домов, дачных и загородных участков к электросетям.' },
+  { icon: 'Building2', title: 'Юридические лица и бизнес', text: 'Присоединение коммерческих, офисных и производственных объектов.' },
+  { icon: 'Trees', title: 'Садовые товарищества (СНТ)', text: 'Электроснабжение СНТ и коллективных участков любой сложности.' },
 ];
 
 const DOCS = [
@@ -150,8 +156,38 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Audience */}
+      <section id="audience" className="py-24 border-t border-border/60 bg-card/40">
+        <div className="container">
+          <div className="max-w-2xl">
+            <span className="text-primary font-500 uppercase tracking-widest text-sm">Для кого</span>
+            <h2 className="font-display text-4xl md:text-5xl font-700 mt-3 leading-tight">
+              Помогаем всем категориям заявителей
+            </h2>
+            <p className="text-muted-foreground mt-4 text-lg">
+              Подключаем к электросетям объекты любого типа и мощности — от дачного участка до
+              производственного комплекса.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-3 gap-5 mt-14">
+            {AUDIENCE.map((a) => (
+              <div
+                key={a.title}
+                className="rounded-xl border border-border bg-background p-7 transition-all hover:border-primary/50 hover:-translate-y-1"
+              >
+                <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-primary/15 text-primary mb-5">
+                  <Icon name={a.icon} size={28} />
+                </div>
+                <h3 className="font-display text-xl font-600">{a.title}</h3>
+                <p className="text-muted-foreground text-sm mt-2 leading-relaxed">{a.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Docs */}
-      <section id="docs" className="py-24 border-t border-border/60 bg-card/40">
+      <section id="docs" className="py-24 border-t border-border/60">
         <div className="container grid lg:grid-cols-2 gap-16 items-center">
           <div>
             <span className="text-primary font-500 uppercase tracking-widest text-sm">Документы</span>
@@ -284,13 +320,14 @@ const Index = () => {
           <div>
             <h4 className="font-display font-600 text-lg mb-4">Контакты</h4>
             <ul className="space-y-3 text-muted-foreground text-sm">
-              <li className="flex items-center gap-3">
-                <Icon name="Phone" size={16} className="text-primary" />
-                +7 (000) 000-00-00
-              </li>
-              <li className="flex items-center gap-3">
-                <Icon name="Mail" size={16} className="text-primary" />
-                info@kwt24.ru
+              <li>
+                <a
+                  href="tel:+70000000000"
+                  className="flex items-center gap-3 hover:text-foreground transition-colors"
+                >
+                  <Icon name="Phone" size={16} className="text-primary" />
+                  +7 (000) 000-00-00
+                </a>
               </li>
               <li className="flex items-center gap-3">
                 <Icon name="MapPin" size={16} className="text-primary" />
