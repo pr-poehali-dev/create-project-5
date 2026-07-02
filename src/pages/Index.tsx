@@ -49,7 +49,7 @@ const TG_CHAT_ID = '8090597648';
 
 const Index = () => {
   const { toast } = useToast();
-  const [form, setForm] = useState({ name: '', power: '', cadastral: '', rosseti: '', comment: '' });
+  const [form, setForm] = useState({ name: '', phone: '', power: '', cadastral: '', rosseti: '', comment: '' });
   const [files, setFiles] = useState<File[]>([]);
   const [menuOpen, setMenuOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -66,6 +66,7 @@ const Index = () => {
         '⚡️ Новая заявка kWt24',
         '',
         `👤 Имя: ${form.name}`,
+        `📞 Телефон: ${form.phone}`,
         `🔌 Мощность: ${form.power || '—'}`,
         `🏠 Кадастровый номер: ${form.cadastral || '—'}`,
         `🖥 Портал Россетей / заявка ранее: ${form.rosseti || '—'}`,
@@ -88,7 +89,7 @@ const Index = () => {
       }
 
       toast({ title: 'Заявка принята!', description: 'Мы свяжемся с вами в ближайшее время для расчёта.' });
-      setForm({ name: '', power: '', cadastral: '', rosseti: '', comment: '' });
+      setForm({ name: '', phone: '', power: '', cadastral: '', rosseti: '', comment: '' });
       setFiles([]);
     } catch {
       toast({ title: 'Ошибка', description: 'Не удалось отправить заявку. Позвоните нам напрямую.', variant: 'destructive' });
@@ -375,19 +376,15 @@ const Index = () => {
                   />
                 </div>
                 <div>
-                  <label className="text-sm text-muted-foreground mb-1.5 block">Наш Telegram-бот</label>
-                  <div className="flex items-center h-12 rounded-md border bg-muted px-4 gap-3">
-                    <Icon name="Send" size={18} className="text-blue-600 shrink-0" />
-                    <span className="flex-1 font-medium text-blue-700 select-all">@KWT24bot</span>
-                    <button
-                      type="button"
-                      onClick={() => { navigator.clipboard.writeText('@KWT24bot'); }}
-                      className="text-xs text-muted-foreground hover:text-blue-700 transition-colors shrink-0 flex items-center gap-1"
-                    >
-                      <Icon name="Copy" size={14} />
-                      Скопировать
-                    </button>
-                  </div>
+                  <label className="text-sm text-muted-foreground mb-1.5 block">Телефон *</label>
+                  <Input
+                    required
+                    type="tel"
+                    placeholder="+7 (___) ___-__-__"
+                    value={form.phone}
+                    onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                    className="h-12"
+                  />
                 </div>
                 <div>
                   <label className="text-sm text-muted-foreground mb-1.5 block">Требуемая мощность, кВт / В</label>
