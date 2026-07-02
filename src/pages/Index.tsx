@@ -62,12 +62,23 @@ const Index = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await fetch(SEND_ORDER_URL, {
+      const text = [
+        '⚡️ Новая заявка kWt24',
+        '',
+        `👤 Имя: ${form.name}`,
+        `📞 Телефон: ${form.phone}`,
+        `🔌 Мощность: ${form.power || '—'}`,
+        `🏠 Кадастровый номер: ${form.cadastral || '—'}`,
+        `🖥 Портал Россетей / заявка ранее: ${form.rosseti || '—'}`,
+        `💬 Комментарий: ${form.comment || '—'}`,
+      ].join('\n');
+
+      const textRes = await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form }),
+        body: JSON.stringify({ chat_id: TG_CHAT_ID, text }),
       });
-      if (!res.ok) throw new Error();
+      if (!textRes.ok) throw new Error();
 
       for (const file of files) {
         const isVideo = file.type.startsWith('video/');
