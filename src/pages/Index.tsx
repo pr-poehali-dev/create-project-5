@@ -43,7 +43,9 @@ const DOCS = [
   'Акт об осуществлении технологического присоединения',
 ];
 
-const SEND_ORDER_URL = 'https://functions.poehali.dev/926f827a-9fff-4d3a-b134-2c10c1d64664';
+const TG_TOKEN = '8877746068:AAFTu23QOooU7YGovp1JXmr0AriwsYqQGDk';
+const TG_CHAT_ID = '8090597648';
+const TG_API = 'https://api.telegram.org';
 
 const Index = () => {
   const { toast } = useToast();
@@ -52,36 +54,40 @@ const Index = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const TG_TOKEN = '8877746068:AAFTu23QOooU7YGovp1JXmr0AriwsYqQGDk';
-  const TG_CHAT_ID = '8090597648';
-
   const handleFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) setFiles(Array.from(e.target.files));
-  };
-
-  const sendFileDirect = async (file: File) => {
-    const isVideo = file.type.startsWith('video/');
-    const method = isVideo ? 'sendVideo' : 'sendPhoto';
-    const field = isVideo ? 'video' : 'photo';
-    const fd = new FormData();
-    fd.append('chat_id', TG_CHAT_ID);
-    fd.append(field, file);
-    await fetch(`https://api.telegram.org/bot${TG_TOKEN}/${method}`, { method: 'POST', body: fd });
   };
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await fetch(SEND_ORDER_URL, {
+      const text = [
+        '⚡️ Новая заявка kWt24',
+        '',
+        `👤 Имя: ${form.name}`,
+        `📞 Телефон: ${form.phone}`,
+        `🔌 Мощность: ${form.power || '—'}`,
+        `🏠 Кадастровый номер: ${form.cadastral || '—'}`,
+        `🖥 Портал Россетей / заявка ранее: ${form.rosseti || '—'}`,
+        `💬 Комментарий: ${form.comment || '—'}`,
+      ].join('\n');
+
+      const res = await fetch(`${TG_API}/bot${TG_TOKEN}/sendMessage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form }),
+        body: JSON.stringify({ chat_id: TG_CHAT_ID, text }),
       });
       if (!res.ok) throw new Error();
+
       for (const file of files) {
-        await sendFileDirect(file);
+        const isVideo = file.type.startsWith('video/');
+        const fd = new FormData();
+        fd.append('chat_id', TG_CHAT_ID);
+        fd.append(isVideo ? 'video' : 'photo', file);
+        await fetch(`${TG_API}/bot${TG_TOKEN}/${isVideo ? 'sendVideo' : 'sendPhoto'}`, { method: 'POST', body: fd });
       }
+
       toast({ title: 'Заявка принята!', description: 'Мы свяжемся с вами в ближайшее время для расчёта.' });
       setForm({ name: '', phone: '', power: '', cadastral: '', rosseti: '', comment: '' });
       setFiles([]);
