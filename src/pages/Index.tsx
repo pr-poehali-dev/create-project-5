@@ -367,6 +367,17 @@ const Index = () => {
                 Написать в Telegram: @KWT24bot
                 <Icon name="Copy" size={16} className="ml-auto text-muted-foreground" />
               </button>
+              {/* Avito CTA */}
+              <a
+                href="https://www.avito.ru/profile/items/active/all?s=4"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 flex items-center gap-3 rounded-xl border border-border bg-background px-5 py-4 text-foreground font-medium hover:bg-muted transition-colors w-full"
+              >
+                <Icon name="ShoppingBag" size={20} className="text-primary shrink-0" />
+                Наш профиль на Авито — KWT24
+                <Icon name="ExternalLink" size={16} className="ml-auto text-muted-foreground" />
+              </a>
             </div>
 
             <form
