@@ -43,18 +43,33 @@ const DOCS = [
   'Акт об осуществлении технологического присоединения',
 ];
 
+const TG_TOKEN = '8877746068:AAFTu23QOooU7YGovp1JXmr0AriwsYqQGDk';
+const TG_CHAT_ID = '8090597648';
+
 const Index = () => {
   const { toast } = useToast();
   const [form, setForm] = useState({ name: '', phone: '', power: '', comment: '' });
   const [menuOpen, setMenuOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: 'Заявка принята!',
-      description: 'Мы свяжемся с вами в ближайшее время для расчёта.',
-    });
-    setForm({ name: '', phone: '', power: '', comment: '' });
+    setLoading(true);
+    const text = `⚡️ Новая заявка kWt24\n\n👤 Имя: ${form.name}\n📞 Телефон: ${form.phone}\n🔌 Мощность: ${form.power || '—'} кВт\n💬 Комментарий: ${form.comment || '—'}`;
+    try {
+      const res = await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: TG_CHAT_ID, text }),
+      });
+      if (!res.ok) throw new Error();
+      toast({ title: 'Заявка принята!', description: 'Мы свяжемся с вами в ближайшее время для расчёта.' });
+      setForm({ name: '', phone: '', power: '', comment: '' });
+    } catch {
+      toast({ title: 'Ошибка', description: 'Не удалось отправить заявку. Позвоните нам напрямую.', variant: 'destructive' });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const closeMenu = () => setMenuOpen(false);
@@ -363,9 +378,9 @@ const Index = () => {
                     className="min-h-24"
                   />
                 </div>
-                <Button type="submit" size="lg" className="w-full font-medium text-base h-12">
-                  <Icon name="Send" size={17} className="mr-2" />
-                  Отправить заявку
+                <Button type="submit" size="lg" className="w-full font-medium text-base h-12" disabled={loading}>
+                  <Icon name={loading ? 'Loader' : 'Send'} size={17} className={`mr-2 ${loading ? 'animate-spin' : ''}`} />
+                  {loading ? 'Отправляем...' : 'Отправить заявку'}
                 </Button>
                 <p className="text-xs text-muted-foreground text-center">
                   Нажимая кнопку, вы соглашаетесь на обработку персональных данных.
