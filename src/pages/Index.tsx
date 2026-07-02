@@ -194,10 +194,7 @@ const Index = () => {
         </div>
         <div className="container px-4 md:px-8">
           <div className="max-w-3xl animate-fade-up">
-            <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/8 px-4 py-1.5 text-sm text-primary mb-5 font-medium">
-              <Icon name="MapPin" size={14} />
-              Красноярск и Красноярский край
-            </div>
+
             <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-700 leading-[1.0] tracking-tight text-foreground">
               Технологическое<br />
               присоединение{' '}
