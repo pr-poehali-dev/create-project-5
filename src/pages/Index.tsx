@@ -503,6 +503,17 @@ const Index = () => {
                     @KWT24bot
                   </button>
                 </li>
+                <li>
+                  <a
+                    href="https://www.avito.ru/profile/items/active/all?s=4"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 hover:text-background transition-colors"
+                  >
+                    <Icon name="ShoppingBag" size={14} className="text-primary shrink-0" />
+                    Авито — KWT24
+                  </a>
+                </li>
                 <li className="flex items-center gap-2">
                   <Icon name="MapPin" size={14} className="text-primary shrink-0" />
                   г. Красноярск
