@@ -67,8 +67,14 @@ const Index = () => {
         <div className="container flex items-center justify-between h-16 px-4 md:px-8">
 
           {/* Logo */}
-          <a href="#home" className="flex-shrink-0">
-            <img src={LOGO_URL} alt="KWt24 — Свет всем" className="h-14 w-auto object-contain" />
+          <a href="#home" className="flex-shrink-0 flex items-center gap-2.5">
+            <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-yellow-400">
+              <Icon name="Zap" size={22} className="text-gray-900" />
+            </span>
+            <span className="flex flex-col leading-none">
+              <span className="font-display font-800 text-2xl tracking-tight text-gray-900">kWt24</span>
+              <span className="text-[11px] font-medium text-muted-foreground tracking-wide">Свет всем</span>
+            </span>
           </a>
 
           {/* Desktop nav */}
@@ -375,7 +381,15 @@ const Index = () => {
         <div className="container px-4 md:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-10">
             <div className="col-span-2 md:col-span-1">
-              <img src={LOGO_URL} alt="KWt24" className="h-12 w-auto object-contain brightness-0 invert mb-4" />
+              <a href="#home" className="flex items-center gap-2.5 mb-4">
+                <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-yellow-400">
+                  <Icon name="Zap" size={20} className="text-gray-900" />
+                </span>
+                <span className="flex flex-col leading-none">
+                  <span className="font-display font-800 text-xl tracking-tight text-white">kWt24</span>
+                  <span className="text-[10px] font-medium text-background/50 tracking-wide">Свет всем</span>
+                </span>
+              </a>
               <p className="text-background/60 text-sm leading-relaxed">
                 Технологическое присоединение к электрическим сетям под ключ в Красноярске.
               </p>
