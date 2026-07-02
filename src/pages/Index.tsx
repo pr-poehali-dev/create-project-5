@@ -128,9 +128,15 @@ const Index = () => {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-3">
-            <a href="tel:+70000000000" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
-              +7 (000) 000-00-00
-            </a>
+            <button
+              type="button"
+              onClick={() => navigator.clipboard.writeText('@KWT24bot')}
+              className="flex items-center gap-1.5 text-sm font-medium text-blue-700 hover:text-primary transition-colors"
+            >
+              <Icon name="Send" size={15} />
+              @KWT24bot
+              <Icon name="Copy" size={13} className="text-muted-foreground" />
+            </button>
             <Button asChild size="sm" className="font-medium">
               <a href="#form">Оставить заявку</a>
             </Button>
@@ -160,13 +166,15 @@ const Index = () => {
               </a>
             ))}
             <div className="pt-3 space-y-2">
-              <a
-                href="tel:+70000000000"
-                className="flex items-center gap-2 py-2.5 px-3 rounded-lg text-sm font-medium text-muted-foreground"
+              <button
+                type="button"
+                onClick={() => navigator.clipboard.writeText('@KWT24bot')}
+                className="flex items-center gap-2 py-2.5 px-3 rounded-lg text-sm font-medium text-blue-700"
               >
-                <Icon name="Phone" size={16} className="text-primary" />
-                +7 (000) 000-00-00
-              </a>
+                <Icon name="Send" size={16} className="text-primary" />
+                @KWT24bot
+                <Icon name="Copy" size={13} className="text-muted-foreground ml-auto" />
+              </button>
               <Button asChild className="w-full font-medium">
                 <a href="#form" onClick={closeMenu}>Оставить заявку</a>
               </Button>
@@ -349,13 +357,15 @@ const Index = () => {
                 ))}
               </div>
               {/* Mobile phone CTA */}
-              <a
-                href="tel:+70000000000"
-                className="mt-7 flex items-center gap-3 rounded-xl border border-primary/30 bg-primary/5 px-5 py-4 text-primary font-medium hover:bg-primary/10 transition-colors md:hidden"
+              <button
+                type="button"
+                onClick={() => navigator.clipboard.writeText('@KWT24bot')}
+                className="mt-7 flex items-center gap-3 rounded-xl border border-primary/30 bg-primary/5 px-5 py-4 text-primary font-medium hover:bg-primary/10 transition-colors md:hidden w-full"
               >
-                <Icon name="Phone" size={20} />
-                Позвонить: +7 (000) 000-00-00
-              </a>
+                <Icon name="Send" size={20} />
+                Написать в Telegram: @KWT24bot
+                <Icon name="Copy" size={16} className="ml-auto text-muted-foreground" />
+              </button>
             </div>
 
             <form
@@ -486,10 +496,14 @@ const Index = () => {
               <h4 className="font-display font-600 text-base mb-4">Контакты</h4>
               <ul className="space-y-3 text-background/60 text-sm">
                 <li>
-                  <a href="tel:+70000000000" className="flex items-center gap-2 hover:text-background transition-colors">
-                    <Icon name="Phone" size={14} className="text-primary shrink-0" />
-                    +7 (000) 000-00-00
-                  </a>
+                  <button
+                    type="button"
+                    onClick={() => navigator.clipboard.writeText('@KWT24bot')}
+                    className="flex items-center gap-2 hover:text-background transition-colors text-left"
+                  >
+                    <Icon name="Send" size={14} className="text-primary shrink-0" />
+                    @KWT24bot
+                  </button>
                 </li>
                 <li className="flex items-center gap-2">
                   <Icon name="MapPin" size={14} className="text-primary shrink-0" />
