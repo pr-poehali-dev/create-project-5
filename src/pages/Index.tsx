@@ -109,8 +109,8 @@ const Index = () => {
 
           {/* Logo */}
           <a href="#home" className="flex-shrink-0 flex items-center gap-2.5">
-            <span className="flex h-12 w-8 items-center justify-center rounded-lg bg-yellow-400">
-              <Icon name="Zap" size={26} className="text-gray-900" />
+            <span className="relative flex h-10 w-10 items-center justify-center rounded-full bg-yellow-400">
+              <Icon name="Zap" size={32} className="text-blue-700 absolute" style={{filter: 'drop-shadow(0 0 1px #fff)'}} />
             </span>
             <span className="flex flex-col leading-none">
               <span className="font-display font-800 text-2xl tracking-tight text-blue-700">kWt24</span>
@@ -467,8 +467,8 @@ const Index = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-10">
             <div className="col-span-2 md:col-span-1">
               <a href="#home" className="flex items-center gap-2.5 mb-4">
-                <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-yellow-400">
-                  <Icon name="Zap" size={20} className="text-gray-900" />
+                <span className="relative flex h-9 w-9 items-center justify-center rounded-full bg-yellow-400">
+                  <Icon name="Zap" size={28} className="text-blue-700 absolute" style={{filter: 'drop-shadow(0 0 1px #fff)'}} />
                 </span>
                 <span className="flex flex-col leading-none">
                   <span className="font-display font-800 text-xl tracking-tight text-white">kWt24</span>
