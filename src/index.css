@@ -143,3 +143,20 @@
 .animate-fade-up {
   animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
+
+@keyframes hero-kenburns {
+  0% {
+    transform: scale(1) translateX(0px);
+  }
+  50% {
+    transform: scale(1.08) translateX(-20px);
+  }
+  100% {
+    transform: scale(1) translateX(0px);
+  }
+}
+
+.animate-hero-kenburns {
+  animation: hero-kenburns 18s ease-in-out infinite;
+  transform-origin: center center;
+}

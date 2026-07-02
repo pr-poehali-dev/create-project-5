@@ -188,11 +188,11 @@ const Index = () => {
       {/* ── HERO ───────────────────────────────────────────── */}
       <section id="home" className="pt-16">
         {/* Hero image — full width */}
-        <div className="w-full" style={{ height: 'clamp(220px, 30vw, 420px)' }}>
+        <div className="w-full overflow-hidden" style={{ height: 'clamp(220px, 30vw, 420px)' }}>
           <img
             src="https://cdn.poehali.dev/projects/e8158772-df0e-4187-8017-4f46e56468be/files/8593ab8b-109b-4627-992a-e8547d5baad9.jpg"
             alt="Линии электропередач"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover animate-hero-kenburns"
           />
         </div>
 
