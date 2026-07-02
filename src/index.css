@@ -4,33 +4,33 @@
 
 @layer base {
   :root {
-    --background: 222 47% 6%;
-    --foreground: 210 20% 96%;
+    --background: 0 0% 100%;
+    --foreground: 220 30% 12%;
 
-    --card: 222 40% 9%;
-    --card-foreground: 210 20% 96%;
+    --card: 214 60% 97%;
+    --card-foreground: 220 30% 12%;
 
-    --popover: 222 40% 9%;
-    --popover-foreground: 210 20% 96%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 30% 12%;
 
-    --primary: 45 96% 55%;
-    --primary-foreground: 222 47% 8%;
+    --primary: 217 90% 50%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 217 33% 15%;
-    --secondary-foreground: 210 20% 96%;
+    --secondary: 214 60% 93%;
+    --secondary-foreground: 217 90% 35%;
 
-    --muted: 217 33% 14%;
-    --muted-foreground: 215 16% 60%;
+    --muted: 214 40% 95%;
+    --muted-foreground: 215 20% 50%;
 
-    --accent: 190 95% 50%;
-    --accent-foreground: 222 47% 8%;
+    --accent: 210 100% 56%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 217 33% 18%;
-    --input: 217 33% 18%;
-    --ring: 45 96% 55%;
+    --border: 214 40% 88%;
+    --input: 214 40% 88%;
+    --ring: 217 90% 50%;
 
     --radius: 0.5rem;
 
@@ -111,20 +111,20 @@
 
 @layer utilities {
   .text-gradient {
-    background: linear-gradient(100deg, hsl(45 96% 60%), hsl(45 96% 45%));
+    background: linear-gradient(100deg, hsl(217 90% 45%), hsl(210 100% 60%));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
 
   .glow-primary {
-    box-shadow: 0 0 40px -8px hsl(45 96% 55% / 0.5);
+    box-shadow: 0 0 40px -8px hsl(217 90% 50% / 0.25);
   }
 
   .grid-texture {
     background-image:
-      linear-gradient(hsl(217 33% 18% / 0.5) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(217 33% 18% / 0.5) 1px, transparent 1px);
+      linear-gradient(hsl(214 40% 88% / 0.8) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(214 40% 88% / 0.8) 1px, transparent 1px);
     background-size: 44px 44px;
   }
 }
