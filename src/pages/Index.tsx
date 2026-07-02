@@ -48,14 +48,39 @@ const TG_CHAT_ID = '8090597648';
 
 const Index = () => {
   const { toast } = useToast();
-  const [form, setForm] = useState({ name: '', phone: '', power: '', comment: '' });
+  const [form, setForm] = useState({ name: '', phone: '', power: '', cadastral: '', rosseti: '', comment: '' });
+  const [files, setFiles] = useState<File[]>([]);
   const [menuOpen, setMenuOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const handleFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) setFiles(Array.from(e.target.files));
+  };
+
+  const sendFile = async (file: File) => {
+    const formData = new FormData();
+    formData.append('chat_id', TG_CHAT_ID);
+    const isVideo = file.type.startsWith('video/');
+    formData.append(isVideo ? 'video' : 'photo', file);
+    await fetch(`https://api.telegram.org/bot${TG_TOKEN}/${isVideo ? 'sendVideo' : 'sendPhoto'}`, {
+      method: 'POST',
+      body: formData,
+    });
+  };
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    const text = `⚡️ Новая заявка kWt24\n\n👤 Имя: ${form.name}\n📞 Телефон: ${form.phone}\n🔌 Мощность: ${form.power || '—'} кВт\n💬 Комментарий: ${form.comment || '—'}`;
+    const text = [
+      '⚡️ Новая заявка kWt24',
+      '',
+      `👤 Имя: ${form.name}`,
+      `📞 Телефон: ${form.phone}`,
+      `🔌 Мощность: ${form.power || '—'}`,
+      `🏠 Кадастровый номер: ${form.cadastral || '—'}`,
+      `🖥 Портал Россетей / заявка ранее: ${form.rosseti || '—'}`,
+      `💬 Комментарий: ${form.comment || '—'}`,
+    ].join('\n');
     try {
       const res = await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
         method: 'POST',
@@ -63,8 +88,10 @@ const Index = () => {
         body: JSON.stringify({ chat_id: TG_CHAT_ID, text }),
       });
       if (!res.ok) throw new Error();
+      for (const file of files) await sendFile(file);
       toast({ title: 'Заявка принята!', description: 'Мы свяжемся с вами в ближайшее время для расчёта.' });
-      setForm({ name: '', phone: '', power: '', comment: '' });
+      setForm({ name: '', phone: '', power: '', cadastral: '', rosseti: '', comment: '' });
+      setFiles([]);
     } catch {
       toast({ title: 'Ошибка', description: 'Не удалось отправить заявку. Позвоните нам напрямую.', variant: 'destructive' });
     } finally {
@@ -361,11 +388,29 @@ const Index = () => {
                   />
                 </div>
                 <div>
-                  <label className="text-sm text-muted-foreground mb-1.5 block">Требуемая мощность, кВт</label>
+                  <label className="text-sm text-muted-foreground mb-1.5 block">Требуемая мощность, кВт / В</label>
                   <Input
-                    placeholder="Например, 15"
+                    placeholder="Например, 15 кВт или 380 В"
                     value={form.power}
                     onChange={(e) => setForm({ ...form, power: e.target.value })}
+                    className="h-12"
+                  />
+                </div>
+                <div>
+                  <label className="text-sm text-muted-foreground mb-1.5 block">Кадастровый номер объекта</label>
+                  <Input
+                    placeholder="Например, 77:01:0001001:1234"
+                    value={form.cadastral}
+                    onChange={(e) => setForm({ ...form, cadastral: e.target.value })}
+                    className="h-12"
+                  />
+                </div>
+                <div>
+                  <label className="text-sm text-muted-foreground mb-1.5 block">Личный кабинет на портале Россетей / подавалась ли ранее заявка</label>
+                  <Input
+                    placeholder="Например: есть ЛК, заявка не подавалась"
+                    value={form.rosseti}
+                    onChange={(e) => setForm({ ...form, rosseti: e.target.value })}
                     className="h-12"
                   />
                 </div>
@@ -377,6 +422,27 @@ const Index = () => {
                     onChange={(e) => setForm({ ...form, comment: e.target.value })}
                     className="min-h-24"
                   />
+                </div>
+                <div>
+                  <label className="text-sm text-muted-foreground mb-1.5 block">Фото / видео объекта</label>
+                  <label className="flex flex-col items-center justify-center gap-2 border-2 border-dashed border-border rounded-xl p-5 cursor-pointer hover:border-primary transition-colors bg-muted/30">
+                    <Icon name="Upload" size={22} className="text-muted-foreground" />
+                    <span className="text-sm text-muted-foreground text-center">
+                      {files.length > 0 ? `Выбрано файлов: ${files.length}` : 'Нажмите, чтобы выбрать файлы'}
+                    </span>
+                    <span className="text-xs text-muted-foreground">Фото и видео, до 50 МБ</span>
+                    <input type="file" multiple accept="image/*,video/*" className="hidden" onChange={handleFiles} />
+                  </label>
+                  {files.length > 0 && (
+                    <ul className="mt-2 space-y-1">
+                      {files.map((f, i) => (
+                        <li key={i} className="text-xs text-muted-foreground flex items-center gap-1.5">
+                          <Icon name={f.type.startsWith('video/') ? 'Video' : 'Image'} size={13} />
+                          {f.name}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
                 <Button type="submit" size="lg" className="w-full font-medium text-base h-12" disabled={loading}>
                   <Icon name={loading ? 'Loader' : 'Send'} size={17} className={`mr-2 ${loading ? 'animate-spin' : ''}`} />
