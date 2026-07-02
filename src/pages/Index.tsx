@@ -14,6 +14,7 @@ const HERO_IMG =
 const NAV = [
   { label: 'Главная', href: '#home' },
   { label: 'Услуга', href: '#service' },
+  { label: 'О нас', href: '#about' },
   { label: 'Для кого', href: '#audience' },
   { label: 'Документы', href: '#docs' },
   { label: 'Контакты', href: '#contacts' },
@@ -264,6 +265,44 @@ const Index = () => {
                 <p className="text-muted-foreground text-sm mt-2 leading-relaxed">{s.text}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── ABOUT ──────────────────────────────────────────── */}
+      <section id="about" className="py-16 md:py-24 border-t border-border">
+        <div className="container px-4 md:px-8">
+          <div className="max-w-3xl mx-auto">
+            <span className="text-primary font-600 uppercase tracking-widest text-xs md:text-sm">О нас</span>
+            <h2 className="font-display text-3xl md:text-4xl font-700 mt-2 leading-tight">
+              Киловатт 24 — ваш надёжный партнёр в электроснабжении
+            </h2>
+            <p className="text-muted-foreground mt-4 text-base md:text-lg leading-relaxed">
+              Мы команда профессионалов с опытом в данной сфере более 15 лет. Проинформируем вас по любым вопросам, всегда на связи! Обратившись к нам за помощью, вы получаете уверенность в завтрашнем дне.
+            </p>
+
+            <div className="mt-8 rounded-2xl bg-muted/60 border border-border p-6 md:p-8">
+              <p className="font-medium text-base md:text-lg mb-5">
+                Наша команда специализируется на технологическом присоединении к электрическим сетям. Мы предлагаем комплексные решения для физических и юридических лиц, включая подключение объектов мощностью до 15 кВт и выше.
+              </p>
+              <h3 className="font-display font-600 text-lg mb-4 text-foreground">Что мы делаем:</h3>
+              <ul className="space-y-3">
+                {[
+                  'Оформляем документы на технологическое присоединение к электрическим сетям',
+                  'Разрабатываем и согласовываем технические условия на присоединение к электросетям',
+                  'Переоформляем и восстанавливаем документы на технологическое присоединение (например, при увеличении мощности или изменении схемы подключения)',
+                  'Заключаем договоры на электроснабжение',
+                  'Проектируем и согласовываем проектную и рабочую документацию',
+                  'Выполняем электромонтажные работы любой сложности, включая пуско-наладочные работы',
+                  'Подключаем частные дома к линии электропередачи, от линии электросети, подключение от столба',
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-3 text-sm md:text-base text-muted-foreground">
+                    <Icon name="CheckCircle2" size={18} className="text-primary shrink-0 mt-0.5" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </section>
