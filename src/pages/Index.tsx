@@ -43,8 +43,7 @@ const DOCS = [
   'Акт об осуществлении технологического присоединения',
 ];
 
-const TG_TOKEN = '8877746068:AAFTu23QOooU7YGovp1JXmr0AriwsYqQGDk';
-const TG_CHAT_ID = '8090597648';
+const SEND_ORDER_URL = 'https://functions.poehali.dev/926f827a-9fff-4d3a-b134-2c10c1d64664';
 
 const Index = () => {
   const { toast } = useToast();
@@ -57,38 +56,16 @@ const Index = () => {
     if (e.target.files) setFiles(Array.from(e.target.files));
   };
 
-  const sendFile = async (file: File) => {
-    const formData = new FormData();
-    formData.append('chat_id', TG_CHAT_ID);
-    const isVideo = file.type.startsWith('video/');
-    formData.append(isVideo ? 'video' : 'photo', file);
-    await fetch(`https://api.telegram.org/bot${TG_TOKEN}/${isVideo ? 'sendVideo' : 'sendPhoto'}`, {
-      method: 'POST',
-      body: formData,
-    });
-  };
-
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    const text = [
-      '⚡️ Новая заявка kWt24',
-      '',
-      `👤 Имя: ${form.name}`,
-      `📞 Телефон: ${form.phone}`,
-      `🔌 Мощность: ${form.power || '—'}`,
-      `🏠 Кадастровый номер: ${form.cadastral || '—'}`,
-      `🖥 Портал Россетей / заявка ранее: ${form.rosseti || '—'}`,
-      `💬 Комментарий: ${form.comment || '—'}`,
-    ].join('\n');
     try {
-      const res = await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
+      const res = await fetch(SEND_ORDER_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chat_id: TG_CHAT_ID, text }),
+        body: JSON.stringify({ ...form }),
       });
       if (!res.ok) throw new Error();
-      for (const file of files) await sendFile(file);
       toast({ title: 'Заявка принята!', description: 'Мы свяжемся с вами в ближайшее время для расчёта.' });
       setForm({ name: '', phone: '', power: '', cadastral: '', rosseti: '', comment: '' });
       setFiles([]);
