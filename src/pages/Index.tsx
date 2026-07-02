@@ -6,7 +6,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 
 const LOGO_URL =
-  'https://cdn.poehali.dev/projects/e8158772-df0e-4187-8017-4f46e56468be/bucket/0ff39b33-5241-47c3-bf8c-a3e5f987b1e3.png';
+  'https://cdn.poehali.dev/projects/e8158772-df0e-4187-8017-4f46e56468be/files/7da712ff-e462-4845-aa18-ef0bde3b4f9f.jpg';
 
 const HERO_IMG =
   'https://cdn.poehali.dev/projects/e8158772-df0e-4187-8017-4f46e56468be/files/4e6db16f-ecc4-4ea8-9f15-24cb14cab9c5.jpg';
@@ -68,7 +68,7 @@ const Index = () => {
 
           {/* Logo */}
           <a href="#home" className="flex-shrink-0">
-            <img src={LOGO_URL} alt="KWt24 — Свет всем" className="h-20 w-auto object-contain rounded-md bg-black px-2" />
+            <img src={LOGO_URL} alt="KWt24 — Свет всем" className="h-14 w-auto object-contain" />
           </a>
 
           {/* Desktop nav */}
