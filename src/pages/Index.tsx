@@ -434,8 +434,30 @@ const Index = () => {
                     type="tel"
                     placeholder="+7 (___) ___-__-__"
                     value={form.phone}
-                    onChange={(e) => setForm({ ...form, phone: e.target.value })}
                     className="h-12"
+                    onFocus={(e) => {
+                      if (!form.phone) setForm({ ...form, phone: '+7 (' });
+                      setTimeout(() => {
+                        const len = e.target.value.length;
+                        e.target.setSelectionRange(len, len);
+                      }, 0);
+                    }}
+                    onChange={(e) => {
+                      let val = e.target.value;
+                      if (!val.startsWith('+7')) {
+                        val = '+7 (' + val.replace(/^\+7\s?\(?/, '');
+                      }
+                      const digits = val.replace('+7 (', '').replace(/\D/g, '');
+                      let result = '+7 (';
+                      if (digits.length > 0) result += digits.slice(0, 3);
+                      if (digits.length >= 3) result += ') ';
+                      if (digits.length > 3) result += digits.slice(3, 6);
+                      if (digits.length >= 6) result += '-';
+                      if (digits.length > 6) result += digits.slice(6, 8);
+                      if (digits.length >= 8) result += '-';
+                      if (digits.length > 8) result += digits.slice(8, 10);
+                      setForm({ ...form, phone: result });
+                    }}
                   />
                 </div>
 
