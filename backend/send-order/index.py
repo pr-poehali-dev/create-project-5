@@ -4,8 +4,9 @@ import base64
 import urllib.request
 
 TG_MIRRORS = [
-    'https://api.telegram.org',
     'https://api.telegram.dog',
+    'https://api.telegram.org',
+    'https://tg.i-c-a.su',
 ]
 
 def tg_request(token: str, method: str, payload: bytes, content_type: str = 'application/json') -> bool:
@@ -13,7 +14,7 @@ def tg_request(token: str, method: str, payload: bytes, content_type: str = 'app
         try:
             url = f'{mirror}/bot{token}/{method}'
             req = urllib.request.Request(url, data=payload, headers={'Content-Type': content_type})
-            with urllib.request.urlopen(req, timeout=15) as resp:
+            with urllib.request.urlopen(req, timeout=8) as resp:
                 result = json.loads(resp.read())
                 if result.get('ok'):
                     return True
