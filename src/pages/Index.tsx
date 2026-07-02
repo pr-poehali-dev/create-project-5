@@ -6,7 +6,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 
 const LOGO_URL =
-  'https://cdn.poehali.dev/projects/e8158772-df0e-4187-8017-4f46e56468be/files/5dbf4cf1-4f60-4d79-88ea-393ed3b9826a.jpg';
+  'https://cdn.poehali.dev/projects/e8158772-df0e-4187-8017-4f46e56468be/files/16277d33-877b-4e8f-9c14-d3866c27c040.jpg';
 
 const HERO_IMG =
   'https://cdn.poehali.dev/projects/e8158772-df0e-4187-8017-4f46e56468be/files/4e6db16f-ecc4-4ea8-9f15-24cb14cab9c5.jpg';
