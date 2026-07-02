@@ -68,12 +68,12 @@ const Index = () => {
 
           {/* Logo */}
           <a href="#home" className="flex-shrink-0 flex items-center gap-2.5">
-            <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-yellow-400">
-              <Icon name="Zap" size={22} className="text-gray-900" />
+            <span className="flex h-12 w-8 items-center justify-center rounded-lg bg-yellow-400">
+              <Icon name="Zap" size={26} className="text-gray-900" />
             </span>
             <span className="flex flex-col leading-none">
-              <span className="font-display font-800 text-2xl tracking-tight text-gray-900">kWt24</span>
-              <span className="text-[11px] font-medium text-muted-foreground tracking-wide">Свет всем</span>
+              <span className="font-display font-800 text-2xl tracking-tight text-blue-700">kWt24</span>
+              <span className="text-[11px] font-medium text-blue-500 tracking-wide">Свет всем</span>
             </span>
           </a>
 
