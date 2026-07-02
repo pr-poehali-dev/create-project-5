@@ -1,5 +1,6 @@
 import os
 import json
+import base64
 import urllib.request
 
 TG_MIRRORS = [
@@ -7,14 +8,12 @@ TG_MIRRORS = [
     'https://api.telegram.dog',
 ]
 
-def tg_send(token: str, chat_id: str, text: str) -> bool:
-    """Пробуем отправить через несколько зеркал Telegram API."""
-    payload = json.dumps({'chat_id': chat_id, 'text': text}).encode()
-    for base in TG_MIRRORS:
+def tg_request(token: str, method: str, payload: bytes, content_type: str = 'application/json') -> bool:
+    for mirror in TG_MIRRORS:
         try:
-            url = f'{base}/bot{token}/sendMessage'
-            req = urllib.request.Request(url, data=payload, headers={'Content-Type': 'application/json'})
-            with urllib.request.urlopen(req, timeout=10) as resp:
+            url = f'{mirror}/bot{token}/{method}'
+            req = urllib.request.Request(url, data=payload, headers={'Content-Type': content_type})
+            with urllib.request.urlopen(req, timeout=15) as resp:
                 result = json.loads(resp.read())
                 if result.get('ok'):
                     return True
@@ -22,8 +21,28 @@ def tg_send(token: str, chat_id: str, text: str) -> bool:
             continue
     return False
 
+def tg_send_text(token: str, chat_id: str, text: str) -> bool:
+    payload = json.dumps({'chat_id': chat_id, 'text': text}).encode()
+    return tg_request(token, 'sendMessage', payload)
+
+def tg_send_file(token: str, chat_id: str, file_data: bytes, file_name: str, mime_type: str) -> bool:
+    is_video = mime_type.startswith('video/')
+    method = 'sendVideo' if is_video else 'sendPhoto'
+    field = 'video' if is_video else 'photo'
+    boundary = b'----FormBoundary7MA4YWxkTrZu0gW'
+    body = (
+        b'--' + boundary + b'\r\n'
+        b'Content-Disposition: form-data; name="chat_id"\r\n\r\n' +
+        chat_id.encode() + b'\r\n--' + boundary + b'\r\n' +
+        f'Content-Disposition: form-data; name="{field}"; filename="{file_name}"\r\n'.encode() +
+        f'Content-Type: {mime_type}\r\n\r\n'.encode() +
+        file_data + b'\r\n--' + boundary + b'--\r\n'
+    )
+    content_type = f'multipart/form-data; boundary={boundary.decode()}'
+    return tg_request(token, method, body, content_type)
+
 def handler(event: dict, context) -> dict:
-    """Отправка заявки с сайта kWt24 в Telegram через прокси."""
+    """Отправка заявки с сайта kWt24 в Telegram через прокси (текст + фото/видео)."""
     if event.get('httpMethod') == 'OPTIONS':
         return {
             'statusCode': 200,
@@ -45,6 +64,7 @@ def handler(event: dict, context) -> dict:
     cadastral = body.get('cadastral', '—')
     rosseti = body.get('rosseti', '—')
     comment = body.get('comment', '—')
+    attachments = body.get('attachments', [])
 
     text = (
         f'⚡️ Новая заявка kWt24\n\n'
@@ -56,14 +76,20 @@ def handler(event: dict, context) -> dict:
         f'💬 Комментарий: {comment}'
     )
 
-    ok = tg_send(token, chat_id, text)
-
+    ok = tg_send_text(token, chat_id, text)
     if not ok:
         return {
             'statusCode': 502,
             'headers': {'Access-Control-Allow-Origin': '*'},
             'body': json.dumps({'ok': False, 'error': 'Не удалось доставить сообщение в Telegram'}),
         }
+
+    for att in attachments:
+        try:
+            file_data = base64.b64decode(att['data'])
+            tg_send_file(token, chat_id, file_data, att['name'], att['type'])
+        except Exception:
+            continue
 
     return {
         'statusCode': 200,

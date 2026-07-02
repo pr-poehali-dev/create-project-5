@@ -56,14 +56,25 @@ const Index = () => {
     if (e.target.files) setFiles(Array.from(e.target.files));
   };
 
+  const toBase64 = (file: File): Promise<string> =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve((reader.result as string).split(',')[1]);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     try {
+      const attachments = await Promise.all(
+        files.map(async (f) => ({ name: f.name, type: f.type, data: await toBase64(f) }))
+      );
       const res = await fetch(SEND_ORDER_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form }),
+        body: JSON.stringify({ ...form, attachments }),
       });
       if (!res.ok) throw new Error();
       toast({ title: 'Заявка принята!', description: 'Мы свяжемся с вами в ближайшее время для расчёта.' });
