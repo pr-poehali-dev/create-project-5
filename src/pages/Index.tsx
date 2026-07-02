@@ -49,7 +49,7 @@ const TG_CHAT_ID = '8090597648';
 
 const Index = () => {
   const { toast } = useToast();
-  const [form, setForm] = useState({ name: '', power: '', cadastral: '', rosseti: '', comment: '' });
+  const [form, setForm] = useState({ name: '', phone: '', power: '', cadastral: '', rosseti: '', comment: '' });
   const [files, setFiles] = useState<File[]>([]);
   const [menuOpen, setMenuOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -66,6 +66,7 @@ const Index = () => {
         '⚡️ Новая заявка kWt24',
         '',
         `👤 Имя: ${form.name}`,
+        `📞 Телефон: ${form.phone}`,
         `🔌 Мощность: ${form.power || '—'}`,
         `🏠 Кадастровый номер: ${form.cadastral || '—'}`,
         `🖥 Портал Россетей / заявка ранее: ${form.rosseti || '—'}`,
@@ -88,7 +89,7 @@ const Index = () => {
       }
 
       toast({ title: 'Заявка принята!', description: 'Мы свяжемся с вами в ближайшее время для расчёта.' });
-      setForm({ name: '', power: '', cadastral: '', rosseti: '', comment: '' });
+      setForm({ name: '', phone: '', power: '', cadastral: '', rosseti: '', comment: '' });
       setFiles([]);
     } catch {
       toast({ title: 'Ошибка', description: 'Не удалось отправить заявку. Позвоните нам напрямую.', variant: 'destructive' });
@@ -381,6 +382,17 @@ const Index = () => {
                     placeholder="Иван Петров"
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
+                    className="h-12"
+                  />
+                </div>
+                <div>
+                  <label className="text-sm text-muted-foreground mb-1.5 block">Телефон *</label>
+                  <Input
+                    required
+                    type="tel"
+                    placeholder="+7 (___) ___-__-__"
+                    value={form.phone}
+                    onChange={(e) => setForm({ ...form, phone: e.target.value })}
                     className="h-12"
                   />
                 </div>
