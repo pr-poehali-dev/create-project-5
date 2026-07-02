@@ -222,7 +222,7 @@ const Index = () => {
             {/* Stats */}
             <div className="mt-10 grid grid-cols-3 gap-4 max-w-sm md:max-w-md">
               {[
-                { n: '10+', t: 'лет опыта' },
+                { n: '15+', t: 'лет опыта' },
                 { n: '500+', t: 'объектов' },
                 { n: '15 кВт', t: 'льготная ставка' },
               ].map((s) => (
