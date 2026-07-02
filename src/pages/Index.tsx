@@ -357,11 +357,11 @@ const Index = () => {
                   </div>
                 ))}
               </div>
-              {/* Mobile phone CTA */}
+              {/* Telegram bot CTA */}
               <button
                 type="button"
                 onClick={() => navigator.clipboard.writeText('@KWT24bot')}
-                className="mt-7 flex items-center gap-3 rounded-xl border border-primary/30 bg-primary/5 px-5 py-4 text-primary font-medium hover:bg-primary/10 transition-colors md:hidden w-full"
+                className="mt-7 flex items-center gap-3 rounded-xl border border-primary/30 bg-primary/5 px-5 py-4 text-primary font-medium hover:bg-primary/10 transition-colors w-full"
               >
                 <Icon name="Send" size={20} />
                 Написать в Telegram: @KWT24bot
@@ -396,21 +396,7 @@ const Index = () => {
                     className="h-12"
                   />
                 </div>
-                <div>
-                  <label className="text-sm text-muted-foreground mb-1.5 block">Напишите нам в Telegram</label>
-                  <div className="flex items-center h-12 rounded-md border bg-muted px-4 gap-3">
-                    <Icon name="Send" size={17} className="text-blue-600 shrink-0" />
-                    <span className="flex-1 font-medium text-blue-700">@KWT24bot</span>
-                    <button
-                      type="button"
-                      onClick={() => navigator.clipboard.writeText('@KWT24bot')}
-                      className="text-xs text-muted-foreground hover:text-blue-700 transition-colors shrink-0 flex items-center gap-1.5"
-                    >
-                      <Icon name="Copy" size={13} />
-                      Скопировать
-                    </button>
-                  </div>
-                </div>
+
                 <div>
                   <label className="text-sm text-muted-foreground mb-1.5 block">Требуемая мощность, кВт / В</label>
                   <Input
