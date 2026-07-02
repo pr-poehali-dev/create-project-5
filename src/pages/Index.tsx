@@ -424,9 +424,14 @@ const Index = () => {
                   {files.length > 0 && (
                     <ul className="mt-2 space-y-1">
                       {files.map((f, i) => (
-                        <li key={i} className="text-xs text-muted-foreground flex items-center gap-1.5">
-                          <Icon name={f.type.startsWith('video/') ? 'Video' : 'Image'} size={13} />
-                          {f.name}
+                        <li key={i} className="text-xs text-muted-foreground flex items-center justify-between gap-1.5 bg-muted/40 rounded-lg px-2 py-1.5">
+                          <span className="flex items-center gap-1.5 truncate">
+                            <Icon name={f.type.startsWith('video/') ? 'Video' : 'Image'} size={13} />
+                            <span className="truncate">{f.name}</span>
+                          </span>
+                          <button type="button" onClick={() => setFiles(files.filter((_, j) => j !== i))} className="flex-shrink-0 text-muted-foreground hover:text-destructive transition-colors">
+                            <Icon name="X" size={13} />
+                          </button>
                         </li>
                       ))}
                     </ul>
