@@ -186,15 +186,19 @@ const Index = () => {
       </header>
 
       {/* ── HERO ───────────────────────────────────────────── */}
-      <section id="home" className="relative pt-24 pb-16 md:pt-40 md:pb-28">
-        <div className="absolute inset-0 -z-10">
-          <img src={HERO_IMG} alt="Электросети" className="h-full w-full object-cover opacity-20" />
-          <div className="absolute inset-0 bg-gradient-to-t from-white via-white/90 to-white/70" />
-          <div className="absolute inset-0 grid-texture opacity-40" />
+      <section id="home" className="pt-16">
+        {/* Hero image — full width */}
+        <div className="w-full" style={{ height: 'clamp(220px, 30vw, 420px)' }}>
+          <img
+            src="https://cdn.poehali.dev/projects/e8158772-df0e-4187-8017-4f46e56468be/files/8593ab8b-109b-4627-992a-e8547d5baad9.jpg"
+            alt="Линии электропередач"
+            className="w-full h-full object-cover"
+          />
         </div>
-        <div className="container px-4 md:px-8">
-          <div className="max-w-3xl animate-fade-up">
 
+        {/* Content below image */}
+        <div className="container px-4 md:px-8 py-12 md:py-20">
+          <div className="max-w-3xl animate-fade-up">
             <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-700 leading-[1.0] tracking-tight text-foreground">
               Технологическое<br />
               присоединение{' '}
