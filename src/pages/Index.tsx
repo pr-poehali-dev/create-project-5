@@ -68,7 +68,7 @@ const Index = () => {
 
           {/* Logo */}
           <a href="#home" className="flex-shrink-0">
-            <img src={LOGO_URL} alt="KWt24 — Свет всем" className="h-10 w-auto object-contain" />
+            <img src={LOGO_URL} alt="KWt24 — Свет всем" className="h-10 w-auto object-contain rounded-md bg-black px-1" />
           </a>
 
           {/* Desktop nav */}
