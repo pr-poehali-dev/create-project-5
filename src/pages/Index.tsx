@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Icon from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -47,6 +47,41 @@ const DOCS = [
 const SEND_ORDER_URL = 'https://functions.poehali.dev/926f827a-9fff-4d3a-b134-2c10c1d64664';
 const TG_TOKEN = '8877746068:AAFTu23QOooU7YGovp1JXmr0AriwsYqQGDk';
 const TG_CHAT_ID = '8090597648';
+
+const HERO_SLIDES = [
+  'https://cdn.poehali.dev/projects/e8158772-df0e-4187-8017-4f46e56468be/files/8593ab8b-109b-4627-992a-e8547d5baad9.jpg',
+  'https://cdn.poehali.dev/projects/e8158772-df0e-4187-8017-4f46e56468be/files/b8a5610a-83cf-492c-adb0-dd47be715999.jpg',
+  'https://cdn.poehali.dev/projects/e8158772-df0e-4187-8017-4f46e56468be/files/ffb5527f-0144-46db-b872-051ddd613477.jpg',
+];
+
+const HeroSlider = () => {
+  const [current, setCurrent] = useState(0);
+  const [prev, setPrev] = useState<number | null>(null);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setCurrent((c) => {
+        setPrev(c);
+        return (c + 1) % HERO_SLIDES.length;
+      });
+    }, 5000);
+    return () => clearInterval(id);
+  }, []);
+
+  return (
+    <div className="w-full overflow-hidden relative" style={{ height: 'clamp(220px, 30vw, 420px)' }}>
+      {HERO_SLIDES.map((src, i) => (
+        <img
+          key={src}
+          src={src}
+          alt="Электросети"
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 animate-hero-kenburns"
+          style={{ opacity: i === current ? 1 : 0 }}
+        />
+      ))}
+    </div>
+  );
+};
 
 const Index = () => {
   const { toast } = useToast();
@@ -188,13 +223,7 @@ const Index = () => {
       {/* ── HERO ───────────────────────────────────────────── */}
       <section id="home" className="pt-16">
         {/* Hero image — full width */}
-        <div className="w-full overflow-hidden" style={{ height: 'clamp(220px, 30vw, 420px)' }}>
-          <img
-            src="https://cdn.poehali.dev/projects/e8158772-df0e-4187-8017-4f46e56468be/files/8593ab8b-109b-4627-992a-e8547d5baad9.jpg"
-            alt="Линии электропередач"
-            className="w-full h-full object-cover animate-hero-kenburns"
-          />
-        </div>
+        <HeroSlider />
 
         {/* Content below image */}
         <div className="container px-4 md:px-8 py-12 md:py-20">
